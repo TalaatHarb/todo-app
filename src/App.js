@@ -15,7 +15,7 @@ export default class Home extends Component {
 		this.removeTodo = this.removeTodo.bind(this);
 		this.completeTodo = this.completeTodo.bind(this);
 	}
-	componentWillMount() {
+	componentDidMount() {
 		const todo = localStorage.getItem('todo');
 		const done = localStorage.getItem('done');
 		if (todo !== null) {
@@ -31,23 +31,23 @@ export default class Home extends Component {
 	removeTodo(name, type) {
 		let array, index;
 		switch (type) {
-			case TASK_STATUSES.TO_DO: {
+			case TASK_STATUSES.TO_DO:
 				array = this.state.list;
 				index = array.indexOf(name);
 				array.splice(index, 1);
 				this.setState({ list: array });
 				localStorage.setItem('todo', JSON.stringify(array));
-			} break;
-			case TASK_STATUSES.DONE: {
+				break;
+			case TASK_STATUSES.DONE:
 				array = this.state.done;
 				index = array.indexOf(name);
 				array.splice(index, 1);
 				this.setState({ done: array });
 				localStorage.setItem('done', JSON.stringify(array));
-			} break;
-			default: {
+				break;
+			default:
 				// nothing
-			} break;
+				break;
 		}
 	}
 	completeTodo(name) {
@@ -69,7 +69,7 @@ export default class Home extends Component {
 		}
 	}
 	handleKey = (event) => {
-		if (event.key === 'Enter'){
+		if (event.key === 'Enter') {
 			this.handleClick();
 		}
 	}
@@ -77,9 +77,9 @@ export default class Home extends Component {
 		return (
 			<div className="header">
 				<h1>My tasks<Emoji text="✍" /></h1>
-				<input placeholder="Ex: Write a new blog post" maxLength={80} value={this.state.task} type='text' onKeyPress={this.handleKey} task={this.state.task} onChange={this.onChange}/>
+				<input placeholder="Ex: Write a new blog post" maxLength={80} value={this.state.task} type='text' onKeyPress={this.handleKey} task={this.state.task} onChange={this.onChange} />
 				<button onClick={this.handleClick}>+</button>
-				<ToDo tasks={this.state.list} done={this.state.done} remove={this.removeTodo} complete={this.completeTodo}/>
+				<ToDo tasks={this.state.list} done={this.state.done} remove={this.removeTodo} complete={this.completeTodo} />
 			</div>
 		);
 	}
